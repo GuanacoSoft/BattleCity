@@ -21,7 +21,7 @@ public class River {
 	
 	static {   
 		riverImags = new Image[]{
-				tk.getImage(CommonWall.class.getResource("Images/river.jpg")),
+				tk.getImage(CommonWall.class.getResource("Images/water dinamic.gif")),
 		};
 	}
 	
@@ -33,7 +33,7 @@ public class River {
 	}
 	
 	public void draw(Graphics g) {
-		g.drawImage(riverImags[0],x, y, null);          
+		g.drawImage(riverImags[0],x, y, 50, 300,  null);          
 	}
 	public static int getRiverWidth() {
 		return riverWidth;
