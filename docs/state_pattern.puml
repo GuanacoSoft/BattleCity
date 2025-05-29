@@ -1,0 +1,88 @@
+@startuml Tank State Pattern
+
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor White
+    ArrowColor Black
+    BorderColor Black
+}
+
+class Tank {
+    - state: TankState
+    - x: int
+    - y: int
+    - live: boolean
+    - life: int
+    + rate: int
+    + {static} speedX: int
+    + {static} speedY: int
+    
+    + Tank(x: int, y: int, good: boolean)
+    + setState(state: TankState)
+    + getState(): TankState
+    + handleDamage(damage: int)
+    + handlePowerUp()
+    + move()
+    + fire(): Bullets
+    + draw(g: Graphics)
+    + drawTank(g: Graphics)
+    + getLife(): int
+    + setLife(life: int)
+}
+
+interface TankState {
+    + move(tank: Tank)
+    + fire(tank: Tank)
+    + handleDamage(tank: Tank, damage: int)
+    + draw(g: Graphics, tank: Tank)
+    + handlePowerUp(tank: Tank)
+}
+
+class NormalState {
+    + move(tank: Tank)
+    + fire(tank: Tank)
+    + handleDamage(tank: Tank, damage: int)
+    + draw(g: Graphics, tank: Tank)
+    + handlePowerUp(tank: Tank)
+}
+
+class PoweredUpState {
+    + move(tank: Tank)
+    + fire(tank: Tank)
+    + handleDamage(tank: Tank, damage: int)
+    + draw(g: Graphics, tank: Tank)
+    + handlePowerUp(tank: Tank)
+}
+
+class DamagedState {
+    + move(tank: Tank)
+    + fire(tank: Tank)
+    + handleDamage(tank: Tank, damage: int)
+    + draw(g: Graphics, tank: Tank)
+    + handlePowerUp(tank: Tank)
+}
+
+class DestroyedState {
+    + move(tank: Tank)
+    + fire(tank: Tank)
+    + handleDamage(tank: Tank, damage: int)
+    + draw(g: Graphics, tank: Tank)
+    + handlePowerUp(tank: Tank)
+}
+
+Tank o-- TankState : has >
+TankState <|.. NormalState
+TankState <|.. PoweredUpState
+TankState <|.. DamagedState
+TankState <|.. DestroyedState
+
+note right of Tank : "Context"
+note right of TankState : "State"
+note right of NormalState : "Concrete State"
+
+note "State Transitions:" as N1
+note "NormalState -> PoweredUpState: on power up\nNormalState -> DamagedState: life <= 50\nNormalState -> DestroyedState: life <= 0" as N2
+note "PoweredUpState -> NormalState: life <= 50\nPoweredUpState -> DestroyedState: life <= 0" as N3
+note "DamagedState -> NormalState: on power up\nDamagedState -> DestroyedState: life <= 0" as N4
+
+@enduml 
