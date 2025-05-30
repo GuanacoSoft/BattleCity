@@ -1,5 +1,3 @@
-
-
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -22,9 +20,11 @@ public class Tank {
 	private int oldX, oldY;
 	private boolean live = true;
 	private int life = 200;
-	private int rate=1;
+	public int rate=1;  // Made public for state access
 	private static Random r = new Random();
-	private int step = r.nextInt(10)+5 ; 
+	private int step = r.nextInt(10)+5;
+	
+	private TankState state;  // Current state of the tank
 
 	private boolean bL = false, bU = false, bR = false, bD = false;
 	
@@ -55,6 +55,7 @@ public class Tank {
 		this.oldX = x;
 		this.oldY = y;
 		this.good = good;
+		this.state = new NormalState();  // Start in normal state
 	}
 
 	public Tank(int x, int y, boolean good, Direction dir, TankClient tc, int player) {
@@ -64,17 +65,8 @@ public class Tank {
 		this.player=player;
 	}
 
-	public void draw(Graphics g) {
-		if (!live) {
-			if (!good) {
-				tc.tanks.remove(this);
-			}
-			return;
-		}
-		//if (good)
-			//new DrawBloodbBar().draw(g); 
+	public void drawTank(Graphics g) {
 		switch (Kdirection) {
-							
 		case D:
 			if(player==1){	g.drawImage(tankImags[4], x, y, null);
 			}
@@ -91,26 +83,39 @@ public class Tank {
 			}else{
 			g.drawImage(tankImags[1], x, y, null);}
 			break;
-		case L:if(player==1){	g.drawImage(tankImags[6], x, y, null);
-		}else if(tc.Player2&&player==2){
-			g.drawImage(tankImags[10], x, y, null);
-		}else{
+		case L:
+			if(player==1){	g.drawImage(tankImags[6], x, y, null);
+			}else if(tc.Player2&&player==2){
+				g.drawImage(tankImags[10], x, y, null);
+			}else{
 			g.drawImage(tankImags[2], x, y, null);}
 			break;
 
-		case R:if(player==1){	g.drawImage(tankImags[7], x, y, null);
-		}else if(tc.Player2&&player==2){
-			g.drawImage(tankImags[11], x, y, null);
-		}else{
+		case R:
+			if(player==1){	g.drawImage(tankImags[7], x, y, null);
+			}else if(tc.Player2&&player==2){
+				g.drawImage(tankImags[11], x, y, null);
+			}else{
 			g.drawImage(tankImags[3], x, y, null);}
 			break;
-
 		}
+	}
 
-		move();   
+	public void draw(Graphics g) {
+		if (!live) {
+			if (!good) {
+				tc.tanks.remove(this);
+			}
+			return;
+		}
+		
+		drawTank(g);  // Draw the tank first
+		state.draw(g, this);  // Let state add any additional effects
+		move();
 	}
 
 	void move() {
+		state.move(this);  // Delegate movement to state
 
 		this.oldX = x;
 		this.oldY = y;
@@ -358,6 +363,7 @@ public class Tank {
 	}
 
 	public Bullets fire() { 
+		state.fire(this);  // Let state modify fire behavior
 		if (!live)
 			return null;
 		int x = this.x + Tank.width / 2 - Bullets.width / 2; 
@@ -469,5 +475,21 @@ public class Tank {
 
 	public int getY() {
 		return y;
+	}
+
+	public void setState(TankState state) {
+		this.state = state;
+	}
+
+	public TankState getState() {
+		return state;
+	}
+
+	public void handleDamage(int damage) {
+		state.handleDamage(this, damage);
+	}
+
+	public void handlePowerUp() {
+		state.handlePowerUp(this);
 	}
 }
