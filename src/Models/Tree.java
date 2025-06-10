@@ -3,18 +3,14 @@ package Models;
 
 import Controllers.TankClient;
 
-import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.net.URL;
-import javax.swing.Timer;
-/**
- * \brief
- * @author Jignesh Chudasama
- */
+
+
+
+
 public class Tree {
 	public static final int width = 30;
 	public static final int length = 30;
@@ -22,22 +18,25 @@ public class Tree {
 	TankClient tc ;
 	private static Toolkit tk = Toolkit.getDefaultToolkit();
 	private static Image[] treeImags = loadTreeImages();
-	private int currentImageIndex = 0;
+
 	
 	
 	public Tree(int x, int y, TankClient tc) { 
 		this.x = x;
 		this.y = y;
 		this.tc = tc;
+	}
 
+	public Image[] getTreeImags() {
+		return treeImags;
+	}
 
-		new Timer(500, new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (treeImags.length > 0) {
-					currentImageIndex = (currentImageIndex + 1) % treeImags.length;
-				}
-			}
-		}).start();
+	public int getPosX() {
+		return x;
+	}
+
+	public int getPosY() {
+		return y;
 	}
 	
 	
@@ -65,10 +64,6 @@ public class Tree {
 		return images;
 	}
 
-	public void draw(Graphics g) {        
-		if (treeImags.length > 0) {
-			g.drawImage(treeImags[currentImageIndex], x, y, null);
-		}
-	}
+
 	
 }

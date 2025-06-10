@@ -7,6 +7,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import Models.Tree;
+import Views.TreeView;
 import Models.Bullets;
 import Models.Tank;
 import Models.GetBlood;
@@ -229,7 +230,8 @@ public class TankClient extends Frame implements ActionListener {
 
 		for (int i = 0; i < trees.size(); i++) { 
 			Tree tr = trees.get(i);
-			tr.draw(g);
+			TreeView trv = new TreeView(tr);
+			trv.draw(g);
 		}
 
 		for (int i = 0; i < bombTanks.size(); i++) { 
