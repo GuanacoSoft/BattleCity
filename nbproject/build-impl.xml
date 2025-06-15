@@ -82,6 +82,9 @@ is divided into following sections:
             </sequential>
         </macrodef>
     </target>
+    <target name="-init-test-properties" depends="-pre-init">
+        <property name="libs.junit.classpath" value="lib/junit-4.13.2.jar:lib/hamcrest-core-1.3.jar"/>
+    </target>
     <target depends="-init-modules-supported,-init-macrodef-modulename" if="modules.supported.internal" name="-init-source-module-properties">
         <fail message="Java 9 support requires Ant 1.10.0 or higher.">
             <condition>
