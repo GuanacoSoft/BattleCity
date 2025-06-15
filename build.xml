@@ -10,6 +10,10 @@
 <project name="BattelCity" default="default" basedir=".">
     <description>Builds, tests, and runs the project BattelCity.</description>
     <import file="nbproject/build-impl.xml"/>
+
+    <target name="-pre-init">
+        <property name="libs.junit.classpath" value="lib/junit-4.13.2.jar:lib/hamcrest-core-1.3.jar"/>
+    </target>
     <!--
 
     There exist several targets which are by default empty and which can be 
