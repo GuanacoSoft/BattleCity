@@ -34,9 +34,10 @@ jobs:
     - name: Generar reporte de tests
       run: ant test-report || echo "No se generó test-report"
 
-      
+
     - name: Subir reporte de tests como artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: reporte-tests
         path: build/test/report
+        retention-days: 7 
