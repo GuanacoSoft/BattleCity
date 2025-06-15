@@ -31,5 +31,5 @@ jobs:
     - name: Build con Ant
       run: ant -noinput -buildfile build.xml
 
-  # - name: Generar reporte de tests
-  #   run: ant test-report || echo "No se generó test-report"
+    - name: Generar reporte de tests
+      run: ant test-report || echo "No se generó test-report"
