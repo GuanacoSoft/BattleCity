@@ -11,19 +11,29 @@
     <description>Builds, tests, and runs the project BattelCity.</description>
     <import file="nbproject/build-impl.xml"/>
 
+    <!-- Este target se ejecuta antes de todo, crea la carpeta de test -->
     <target name="-pre-init">
         <property name="libs.junit.classpath" value="lib/junit-4.13.2.jar:lib/hamcrest-core-1.3.jar"/>
+        <mkdir dir="build/test/classes"/>
+        <mkdir dir="build/test/results"/>
     </target>
+
+    <!-- Classpath para los tests -->
     <path id="test.classpath">
         <pathelement path="build/classes"/>
+        <pathelement path="build/test/classes"/>
         <pathelement path="lib/junit-4.13.2.jar"/>
         <pathelement path="lib/hamcrest-core-1.3.jar"/>
     </path>
-    <target name="compile-test" depends="compile">
-    <javac srcdir="test"
-           destdir="build/test/classes"
-           classpathref="test.classpath"/>
+
+    <!-- Compila los tests -->
+    <target name="compile-test" depends="compile,-pre-init">
+        <javac srcdir="test"
+               destdir="build/test/classes"
+               classpathref="test.classpath"/>
     </target>
+
+    <!-- Ejecuta los tests -->
     <target name="test" depends="compile-test">
         <junit printsummary="yes" haltonfailure="no">
             <classpath refid="test.classpath"/>
