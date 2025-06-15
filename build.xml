@@ -14,6 +14,26 @@
     <target name="-pre-init">
         <property name="libs.junit.classpath" value="lib/junit-4.13.2.jar:lib/hamcrest-core-1.3.jar"/>
     </target>
+    <path id="test.classpath">
+        <pathelement path="build/classes"/>
+        <pathelement path="lib/junit-4.13.2.jar"/>
+        <pathelement path="lib/hamcrest-core-1.3.jar"/>
+    </path>
+    <target name="compile-test" depends="compile">
+    <javac srcdir="test"
+           destdir="build/test/classes"
+           classpathref="test.classpath"/>
+    </target>
+    <target name="test" depends="compile-test">
+        <junit printsummary="yes" haltonfailure="no">
+            <classpath refid="test.classpath"/>
+            <batchtest fork="yes" todir="build/test/results">
+                <fileset dir="test">
+                    <include name="**/*Test.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
     <!--
 
     There exist several targets which are by default empty and which can be 
