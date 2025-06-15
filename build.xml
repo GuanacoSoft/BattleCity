@@ -18,6 +18,13 @@
         <mkdir dir="build/test/results"/>
     </target>
 
+    <target name="compile" depends="-pre-init">
+    <mkdir dir="build/classes"/>
+    <javac srcdir="src"
+            destdir="build/classes"
+            includeantruntime="false"/>
+    </target>
+
     <!-- Classpath para los tests -->
     <path id="test.classpath">
         <pathelement path="build/classes"/>

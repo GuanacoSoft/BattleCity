@@ -1,9 +1,8 @@
-package test.Models;
+package Models;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
 import java.lang.reflect.Field;
-import Models.Tree;
 
 public class TreeTest {
 
