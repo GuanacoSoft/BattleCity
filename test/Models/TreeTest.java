@@ -9,7 +9,7 @@ public class TreeTest {
 
     @Test
     public void testCantidadImagenesEs7() throws Exception {
-        Field imgsField = Tree.class.getDeclaredField("imgs");
+        Field imgsField = Tree.class.getDeclaredField("treeImags");
         imgsField.setAccessible(true);
         Object[] imgs = (Object[]) imgsField.get(null); // null porque es static
         assertEquals(7, imgs.length);
