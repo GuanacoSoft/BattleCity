@@ -11,6 +11,6 @@ public class TreeTest {
         // Field imgsField = Tree.class.getDeclaredField("treeImags");
         // imgsField.setAccessible(true);
         // Object[] imgs = (Object[]) imgsField.get(null); // null porque es static
-        assertEquals(7, 7);
+        assertEquals(7, 8);
     }
 }
