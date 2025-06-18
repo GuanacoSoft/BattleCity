@@ -6,6 +6,7 @@ on:
       - main
       - develop
       - workflows
+      - test-writing
 
   pull_request:
     branches: 
