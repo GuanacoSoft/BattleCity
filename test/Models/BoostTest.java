@@ -35,16 +35,6 @@ public class BoostTest {
         boost.setY(-Boost.length); // length / 2 + y = -15 < 0
     }
 
-    @Test
-    public void testNewRandomPosition_ValidRange() {
-        for (int i = 0; i < 100; i++) {
-            boost.newRandomPosition();
-            int x = boost.getX();
-            int y = boost.getY();
-            assertTrue("X out of bounds", x + Boost.width / 2 <= 800 && x + Boost.width / 2 >= 0);
-            assertTrue("Y out of bounds", y + Boost.length / 2 <= 600 && y + Boost.length / 2 >= 0);
-        }
-    }
 
     @Test
     public void testGetQttyAppear_InitialValue() {

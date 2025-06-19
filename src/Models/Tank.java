@@ -28,13 +28,13 @@ public class Tank {
 	private static Random r = new Random();
 	private int step = r.nextInt(10)+5;
 	
-	private TankState state;  // Current state of the tank
+	private TankState state;  
 
 	private boolean bL = false, bU = false, bR = false, bD = false;
 	
 
-	private static Toolkit tk = Toolkit.getDefaultToolkit();
-	private static Image[] tankImags = null; 
+	public static Toolkit tk = Toolkit.getDefaultToolkit();
+	public static Image[] tankImags = null; 
 	static {
 		tankImags = new Image[] {
 				tk.getImage(BombTank.class.getResource("Images/tankD.gif")),
@@ -68,6 +68,15 @@ public class Tank {
 		this.tc = tc;
 		this.player=player;
 	}
+
+	public void checkBoostCatch(Boost boost) {
+    Rectangle tankRect = new Rectangle(this.getX(), this.getY(), width, length);
+    Rectangle boostRect = new Rectangle(boost.getX(), boost.getY(), Boost.width, Boost.length);
+
+    if (tankRect.intersects(boostRect) && boost.isBoostAvailable()) {
+        boost.updateQttyAppear(0);
+    }
+}
 
 	public void drawTank(Graphics g) {
 		switch (Kdirection) {
@@ -115,8 +124,7 @@ public class Tank {
 			return;
 		}
 		
-		drawTank(g);  // Draw the tank first
-		state.draw(g, this);  // Let state add any additional effects
+		drawTank(g);  
 		move();
 	}
 
@@ -484,7 +492,9 @@ public class Tank {
 	}
 
 	public void setState(TankState state) {
+
 		this.state = state;
+		this.state.loadImages(this);  // Load images for the new state
 	}
 
 	public TankState getState() {

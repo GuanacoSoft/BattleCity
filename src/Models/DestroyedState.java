@@ -2,6 +2,11 @@ package Models;
 import java.awt.Graphics;
 
 public class DestroyedState implements TankState {
+
+    
+    @Override
+    public void loadImages(Tank tank) {}
+    
     @Override
     public void move(Tank tank) {
         // Cannot move when destroyed
@@ -17,11 +22,7 @@ public class DestroyedState implements TankState {
         // Cannot take more damage when destroyed
     }
 
-    @Override
-    public void draw(Graphics g, Tank tank) {
-        // Tank is not drawn when destroyed
-        // Could add explosion animation here
-    }
+
 
     @Override
     public void handlePowerUp(Tank tank) {

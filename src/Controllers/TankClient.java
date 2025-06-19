@@ -16,6 +16,7 @@ import Models.Home;
 import Models.River;
 import Models.CommonWall;
 import Models.MetalWall;
+import Models.PoweredUpState;
 import Models.BombTank;
 import Models.Boost;
 import Models.Direction;
@@ -159,6 +160,7 @@ public class TankClient extends Frame implements ActionListener {
 		}
 		g.setColor(c);
 		this.drawBoost(g);
+		this.checkBoostCatch(g);
 		for (int i = 0; i < theRiver.size(); i++) {
 			River r = theRiver.get(i);
 			r.draw(g);
@@ -638,4 +640,18 @@ public class TankClient extends Frame implements ActionListener {
 		boostView.draw(g, boost.getX(), boost.getY(), Boost.width, Boost.length);
 	}
 
+
+	public void checkBoostCatch(Graphics g) {
+		Rectangle boostRect = new Rectangle(boost.getX(), boost.getY(), Boost.width, Boost.length);
+
+		// Solo verifica para el tanque del jugador 1 (homeTank)
+		Rectangle tankRect = new Rectangle(homeTank.getX(), homeTank.getY(), Tank.width, Tank.length);
+		if (tankRect.intersects(boostRect) && boost.isBoostAvailable()) {
+			boost.updateQttyAppear(0);
+			System.out.println("BOOST.");
+			this.drawBoost(g);
+			PoweredUpState state = new PoweredUpState();
+			homeTank.setState(state);
+		}
+	}
 }

@@ -2,6 +2,12 @@ package Models;
 import java.awt.Graphics;
 
 public class NormalState implements TankState {
+
+
+    @Override
+    public void loadImages(Tank tank) {}
+
+    
     @Override
     public void move(Tank tank) {
         // Normal movement speed
@@ -30,11 +36,6 @@ public class NormalState implements TankState {
         }
     }
 
-    @Override
-    public void draw(Graphics g, Tank tank) {
-        // Use normal tank images
-        tank.drawTank(g);
-    }
 
     @Override
     public void handlePowerUp(Tank tank) {

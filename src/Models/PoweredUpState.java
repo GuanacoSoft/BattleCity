@@ -1,12 +1,35 @@
 package Models;
-import java.awt.Graphics;
+
+import java.awt.*;
 
 public class PoweredUpState implements TankState {
+
+    
+    @Override
+    public void loadImages(Tank tank) { 
+
+		Tank.tankImags = new Image[] {
+				Tank.tk.getImage(BombTank.class.getResource("Images/tankD.gif")),
+				Tank.tk.getImage(BombTank.class.getResource("Images/tankU.gif")),
+				Tank.tk.getImage(BombTank.class.getResource("Images/tankL.gif")),
+				Tank.tk.getImage(BombTank.class.getResource("Images/tankR.gif")), 
+				Tank.tk.getImage(BombTank.class.getResource("Images/HtankD2.gif")),
+				Tank.tk.getImage(BombTank.class.getResource("Images/HtankU2.gif")),
+				Tank.tk.getImage(BombTank.class.getResource("Images/HtankL2.gif")),
+				Tank.tk.getImage(BombTank.class.getResource("Images/HtankR2.gif")),
+				Tank.tk.getImage(BombTank.class.getResource("Images/HtankD2.gif")),
+				Tank.tk.getImage(BombTank.class.getResource("Images/HtankU2.gif")),
+				Tank.tk.getImage(BombTank.class.getResource("Images/HtankL2.gif")),
+				Tank.tk.getImage(BombTank.class.getResource("Images/HtankR2.gif")),
+				};
+    }
+
+
     @Override
     public void move(Tank tank) {
         // Increased movement speed
-        Tank.speedX = 8;
-        Tank.speedY = 8;
+        Tank.speedX = 12;
+        Tank.speedY = 12;
     }
 
     @Override
@@ -31,11 +54,6 @@ public class PoweredUpState implements TankState {
         }
     }
 
-    @Override
-    public void draw(Graphics g, Tank tank) {
-        // Use powered up tank images (already using player 1 or 2 images)
-        tank.draw(g);
-    }
 
     @Override
     public void handlePowerUp(Tank tank) {

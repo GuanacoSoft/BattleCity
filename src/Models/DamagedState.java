@@ -2,6 +2,12 @@ package Models;
 import java.awt.Graphics;
 
 public class DamagedState implements TankState {
+
+
+    @Override
+    public void loadImages(Tank tank) {}
+
+
     @Override
     public void move(Tank tank) {
         // Reduced movement speed when damaged
@@ -28,11 +34,7 @@ public class DamagedState implements TankState {
         }
     }
 
-    @Override
-    public void draw(Graphics g, Tank tank) {
-        // Draw damaged tank (using normal images for now)
-        tank.draw(g);
-    }
+
 
     @Override
     public void handlePowerUp(Tank tank) {
