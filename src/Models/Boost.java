@@ -1,5 +1,6 @@
 package Models;
 import java.awt.*;
+import java.awt.Rectangle;
 import java.util.List;
 import Models.CommonWall;
 import Models.MetalWall;
@@ -17,14 +18,14 @@ public class Boost {
     }
 
     public void setX(int x) {
-        if (x < 0 || x + width > 800) {
+        if (width / 2 + x > 800 || width / 2 + x < 0) {
             throw new IllegalArgumentException("X position out of bounds: " + x);
         }
         this.x = x;
-    }
+    }   
 
     public void setY(int y) {
-        if (y < 0 || y + length > 600) {
+        if (length / 2 + y > 600 || length / 2 + y < 0) {
             throw new IllegalArgumentException("Y position out of bounds: " + y);
         }
         this.y = y;
