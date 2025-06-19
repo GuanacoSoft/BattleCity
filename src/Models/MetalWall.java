@@ -16,7 +16,7 @@ import java.awt.Toolkit;
 public class MetalWall {
 	public static final int width = 36; 
 	public static final int length = 37;
-	private int x, y;
+	public int x, y;
 	TankClient tc;
 	private static Toolkit tk = Toolkit.getDefaultToolkit();
 	private static Image[] wallImags = null;

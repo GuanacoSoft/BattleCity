@@ -629,7 +629,7 @@ public class TankClient extends Frame implements ActionListener {
 			lastBoostSecond = elapsedSeconds;
 
 			if (elapsedSeconds >= 2 && elapsedSeconds % boost.getStepTime() == 0 && boost.isBoostAvailable()) {
-				boost.newRandomPosition();
+				boost.newRandomPosition(otherWall, metalWall, trees, theRiver);
 				boost.updateQttyAppear(boost.getQttyAppear() - 1);
 			}
 		}
