@@ -17,7 +17,7 @@ public class BoostTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testSetX_TooLarge_ThrowsException() {
-        boost.setX(800); // width / 2 + x = 815 > 800
+        boost.setX(801 - Boost.width); // 801 - 30 = 771 → x + 30 = 801 > 800
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -25,9 +25,10 @@ public class BoostTest {
         boost.setX(-Boost.width); // width / 2 + x = -15 < 0
     }
 
+
     @Test(expected = IllegalArgumentException.class)
     public void testSetY_TooLarge_ThrowsException() {
-        boost.setY(600); // length / 2 + y = 615 > 600
+        boost.setY(601 - Boost.length); // y + 30 = 601 > 600
     }
 
     @Test(expected = IllegalArgumentException.class)
