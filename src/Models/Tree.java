@@ -38,6 +38,14 @@ public class Tree {
 	public int getPosY() {
 		return y;
 	}
+
+	public void setx(int x) {
+		this.x = x;
+	}
+
+	public void sety(int y) {
+		this.y = y;
+	}
 	
 	
 
