@@ -7,6 +7,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import Models.Tree;
+import Views.BoostView;
 import Views.TreeView;
 import Models.Bullets;
 import Models.Tank;
@@ -16,6 +17,7 @@ import Models.River;
 import Models.CommonWall;
 import Models.MetalWall;
 import Models.BombTank;
+import Models.Boost;
 import Models.Direction;
 
 
@@ -42,6 +44,8 @@ public class TankClient extends Frame implements ActionListener {
  * \brief
  * @author Jignesh Chudasama
  */
+	private int lastBoostSecond = -1;
+	private long startTime;
 	private static final long serialVersionUID = 1L;
 	public static final int Fram_width = 800; 
 	public static final int Fram_length = 600;
@@ -66,6 +70,8 @@ public class TankClient extends Frame implements ActionListener {
 	public List<CommonWall> homeWall = new ArrayList<CommonWall>();
 	public List<CommonWall> otherWall = new ArrayList<CommonWall>();
 	public List<MetalWall> metalWall = new ArrayList<MetalWall>();
+	public Boost boost = new Boost();
+	public BoostView boostView = new BoostView();
 
 	public void update(Graphics g) {
 
@@ -99,6 +105,9 @@ public class TankClient extends Frame implements ActionListener {
 		if(!Player2) g.drawString("" + homeTank.getLife(), 650, 70);
 		else g.drawString("Player1: " + homeTank.getLife()+"    Player2:"+homeTank2.getLife(), 450, 70);
 		g.setFont(f1);
+		int cantidadSegundos = getElapsedSeconds();
+		g.drawString("Time Elapsed: " + cantidadSegundos, 400, 300);
+		g.drawString("x: " + boost.getX() + "y: " + boost.getY() , 400, 250);
 		if (!Player2){
 			if (tanks.size() == 0 && home.isLive() && homeTank.isLive()&&lose==false) {
 			Font f = g.getFont();
@@ -149,7 +158,7 @@ public class TankClient extends Frame implements ActionListener {
 			}
 		}
 		g.setColor(c);
-
+		this.drawBoost(g);
 		for (int i = 0; i < theRiver.size(); i++) {
 			River r = theRiver.get(i);
 			r.draw(g);
@@ -277,9 +286,15 @@ public class TankClient extends Frame implements ActionListener {
 
 	}
 
+	public int getElapsedSeconds() {
+        long now = System.currentTimeMillis();
+        return (int)((now - startTime) / 1000);
+    }
+
 	public TankClient() {
+		BoostView.setBoostImage(Boost.getBoostImage());
 		// printable = false;
-		
+		startTime = System.currentTimeMillis();
 		jmb = new MenuBar();
 		jm1 = new Menu("Game");
 		jm2 = new Menu("Setting");
@@ -430,6 +445,7 @@ public class TankClient extends Frame implements ActionListener {
 								this,0));
 		}
 
+		
 		this.setSize(Fram_width, Fram_length);
 		this.setLocation(280, 50); 
 		this.setTitle("Battle City v1.1.0 - by Jignesh ");
@@ -599,4 +615,27 @@ public class TankClient extends Frame implements ActionListener {
 		}*/
 		
 	}
+
+	public void drawBoost(Graphics g) {	
+		int elapsedSeconds = getElapsedSeconds();
+
+		// Si el boost ya no debe aparecer, no lo dibujes
+		if (boost.getQttyAppear() <= 0) {
+			return;
+		}
+
+		// Solo cambia de posición y actualiza la imagen cuando corresponde
+		if (elapsedSeconds != lastBoostSecond) {
+			lastBoostSecond = elapsedSeconds;
+
+			if (elapsedSeconds >= 2 && elapsedSeconds % boost.getStepTime() == 0 && boost.isBoostAvailable()) {
+				boost.newRandomPosition();
+				boost.updateQttyAppear(boost.getQttyAppear() - 1);
+			}
+		}
+
+		// Siempre dibuja el boost mientras qttyAppear > 0
+		boostView.draw(g, boost.getX(), boost.getY(), Boost.width, Boost.length);
+	}
+
 }
