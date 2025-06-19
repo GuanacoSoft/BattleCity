@@ -263,7 +263,7 @@ public class Tank {
 			tc.homeTank = new Tank(300, 560, true, Direction.STOP, tc,0);
 			if (!tc.home.isLive()) 
 				tc.home.setLive(true);
-			TankClient abc=new TankClient();
+			TankClient abc= Controllers.TankClient.getInstance();
 			if (tc.Player2) abc.Player2=true;
 			break;
 		case KeyEvent.VK_D:

@@ -24,6 +24,7 @@ import Models.Direction;
 
 public class TankClient extends Frame implements ActionListener {
 
+	private static TankClient instance;
 
 	public static void main() {
         TankClient tankClient = new TankClient();
@@ -106,9 +107,6 @@ public class TankClient extends Frame implements ActionListener {
 		if(!Player2) g.drawString("" + homeTank.getLife(), 650, 70);
 		else g.drawString("Player1: " + homeTank.getLife()+"    Player2:"+homeTank2.getLife(), 450, 70);
 		g.setFont(f1);
-		int cantidadSegundos = getElapsedSeconds();
-		g.drawString("Time Elapsed: " + cantidadSegundos, 400, 300);
-		g.drawString("x: " + boost.getX() + "y: " + boost.getY() , 400, 250);
 		if (!Player2){
 			if (tanks.size() == 0 && home.isLive() && homeTank.isLive()&&lose==false) {
 			Font f = g.getFont();
@@ -293,7 +291,7 @@ public class TankClient extends Frame implements ActionListener {
         return (int)((now - startTime) / 1000);
     }
 
-	public TankClient() {
+	private TankClient() {
 		BoostView.setBoostImage(Boost.getBoostImage());
 		// printable = false;
 		startTime = System.currentTimeMillis();
@@ -464,7 +462,13 @@ public class TankClient extends Frame implements ActionListener {
 		this.addKeyListener(new KeyMonitor());
 		new Thread(new PaintThread()).start(); 
 	}
-
+    
+	public static synchronized TankClient getInstance() {
+        if (instance == null) {
+            instance = new TankClient();
+        }
+        return instance;
+    }
 	public static void main(String[] args) {
 		new TankClient(); 
 	}
