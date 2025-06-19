@@ -1,4 +1,4 @@
-package test.Models;
+package Models;
 
 import Models.Boost;
 import org.junit.Before;
