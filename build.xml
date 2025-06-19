@@ -42,8 +42,9 @@
 
     <!-- Ejecuta los tests -->
     <target name="test" depends="compile-test">
-        <junit printsummary="yes" haltonfailure="no">
+        <junit printsummary="yes" showoutput="true" haltonfailure="true">
             <classpath refid="test.classpath"/>
+            <formatter type="plain" usefile="false"/>
             <batchtest fork="yes" todir="build/test/results">
                 <fileset dir="test">
                     <include name="**/*Test.java"/>
@@ -60,6 +61,7 @@
             <report format="frames" todir="build/test/report"/>
         </junitreport>
     </target>
+
     <!--
 
     There exist several targets which are by default empty and which can be 
